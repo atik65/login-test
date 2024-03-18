@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import CustomRootProvider from "@/components/RootProvider";
+import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,9 +11,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const session = getServerSession();
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <CustomRootProvider session={session}>{children}</CustomRootProvider>
+      </body>
     </html>
   );
 }
